@@ -18,12 +18,12 @@
 		<tbody>	
 			<c:forEach items="${todos}" var="todo">
 				<tr>
-					<td>${todo.id()}</td>
-					<td>${todo.description()}</td>
-					<td>${todo.localDate()}</td>
-					<td>${todo.done()}</td>
-					<td> <a href="delete-todo?id=${todo.id()}" class="btn btn-warning">Delete</a>   </td>
-					<td> <a href="update-todo?id=${todo.id()}" class="btn btn-success">Update</a>   </td>
+					<td>${todo.getId()}</td>
+					<td>${todo.getDescription()}</td>
+					<td>${todo.getLocalDate()}</td>
+					<td>${todo.isDone()}</td>
+					<td> <a href="delete-todo?id=${todo.getId()}" class="btn btn-warning">Delete</a>   </td>
+					<td> <a href="update-todo?id=${todo.getId()}" class="btn btn-success">Update</a>   </td>
 				</tr>
 			</c:forEach>
 		</tbody>

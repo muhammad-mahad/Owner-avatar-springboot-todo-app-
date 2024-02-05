@@ -19,12 +19,12 @@ import jakarta.validation.Valid;
 
 @Controller
 @SessionAttributes(names = "name")
-public class TodoController {
-	private TodoService todoService;
+public class TodoControllerJpa {
+	private TodoRepository todoRepository;
 	private String username = "Malik";
 
-	public TodoController(TodoService todoService) {
-		this.todoService = todoService;
+	public TodoControllerJpa(TodoRepository todoRepository) {
+		this.todoRepository = todoRepository;
 	}
 
 	@RequestMapping("")
@@ -34,7 +34,7 @@ public class TodoController {
 
 	@RequestMapping("list-todos")
 	public String listAlltodos(ModelMap model) {
-		List<Todo> todos = todoService.findByUsername(username);
+		List<Todo> todos = todoRepository.findByUsername(username);
 		Collections.sort(todos, new TodoComparator());
 		model.addAttribute("todos", todos);
 		return "list-todos";
@@ -52,21 +52,22 @@ public class TodoController {
 	public String postNewTodo(@Valid TodoDTO todo, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return "todo";
-		todoService.addTodo(username, todo.description(), todo.localDate(), false);
+		Todo newTodo = new Todo(username, todo.getDescription(), todo.getLocalDate(), false);
+		todoRepository.save(newTodo);
 		return "redirect:list-todos";
 	}
 
 	@RequestMapping("delete-todo")
 	public String deleteTodo(@RequestParam int id) {
-		todoService.deleteById(id);
+		todoRepository.deleteById(id);
 		return "redirect:list-todos";
 
 	}
 
 	@RequestMapping(value = "update-todo", method = RequestMethod.GET)
 	public String updateTodo(@RequestParam int id, ModelMap model) {
-		Todo todo = todoService.findById(id);
-		model.addAttribute("todo", new TodoUpdateDTO(todo.description(), todo.localDate(), todo.done()));
+		Todo todo = todoRepository.findById(id).get();
+		model.addAttribute("todo", new TodoUpdateDTO(todo.getDescription(), todo.getLocalDate(), todo.isDone()));
 		model.addAttribute("title", "Update");
 		return "todo";
 	}
@@ -83,7 +84,8 @@ public class TodoController {
 	public String postUpdateTodo(@RequestParam int id, @Valid TodoUpdateDTO todo, BindingResult bindingResult) {
 		if (bindingResult.hasErrors())
 			return "todo";
-		todoService.updateTodo(new Todo(id, username, todo.description(), todo.localDate(), todo.done()));
+		Todo upateTodo = new Todo(id, username, todo.getDescription(), todo.getLocalDate(), todo.isDone());
+		todoRepository.save(upateTodo);
 		return "redirect:list-todos";
 	}
 }
