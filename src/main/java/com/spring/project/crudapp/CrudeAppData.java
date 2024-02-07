@@ -12,4 +12,5 @@ public class CrudeAppData {
 	public static final String ADD_PAGE = "Add";
 	public static final String UPDATE_PAGE = "Update";
 	public static final String REDIRECT = "redirect:";
+	public static final String PARAM_ID = "/?id=";
 }

@@ -4,13 +4,8 @@ import static com.spring.project.crudapp.CrudApplication.USER_NAME;
 
 import java.time.LocalDate;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import com.spring.project.crudapp.CrudeAppData;
 import com.spring.project.crudapp.models.Todo;
 import com.spring.project.crudapp.models.TodoDto1;
 import com.spring.project.crudapp.models.TodoDto2;
@@ -41,19 +36,10 @@ public class TodoService {
 
 	public void deleteTodo(int id) {
 		todoRepository.deleteById(id);
-
 	}
 
 	public Todo getTodo(int id) {
 		return todoRepository.findById(id).orElse(null);
-	}
-
-	@ModelAttribute(CrudeAppData.IS_DONE_OPTIONS)
-	public Map<Integer, String> populateSubCategoryTypes() {
-		Map<Integer, String> subCategoryNameMap = new HashMap<Integer, String>();
-		subCategoryNameMap.put(1, Boolean.FALSE.toString());
-		subCategoryNameMap.put(2, Boolean.TRUE.toString());
-		return subCategoryNameMap;
 	}
 
 	public void updateTodo(int id, TodoDto2 todo) {

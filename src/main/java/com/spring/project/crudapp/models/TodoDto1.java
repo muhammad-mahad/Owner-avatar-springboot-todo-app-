@@ -5,9 +5,12 @@ import java.time.LocalDate;
 import javax.validation.constraints.FutureOrPresent;
 import javax.validation.constraints.Size;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class TodoDto1 {
-	@Size(min = 10, message = "Enter atleast 10 characters")
+	@Size(min = 10, message = "Description must be at least 10 characters long")
 	protected String description;
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	@FutureOrPresent(message = "Enter future or valid date")
 	protected LocalDate localDate;
 

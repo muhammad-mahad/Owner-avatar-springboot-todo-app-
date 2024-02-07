@@ -1,7 +1,10 @@
 <!DOCTYPE html>
-<html>
-	<head>	
-		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />	
+<html lang="en">
+	<head>
+	    <meta charset="UTF-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	    <!-- Bootstrap CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 		<title>List Todos Page</title>
 	</head>
 	<body>
@@ -10,7 +13,7 @@
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav">
 					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
-					<li class="nav-item"><a class="nav-link" href="/list-todos">Todos</a></li>
+					<li class="nav-item"><a class="nav-link" href="/allTodos">Todos</a></li>
 				</ul>
 			</div>	
 		</nav>
@@ -33,13 +36,16 @@
 						<td th:text="${todo.getDescription()}">Description</td>
 						<td th:text="${todo.getLocalDate()}">Target Date</td>
 						<td th:text="${todo.isDone()}">Is Done?</td>
-						<td> <a th:href="@{/update-todo/(Id=${todo.getId()})}" class="btn btn-warning">Delete</a>   </td>
-						<td> <a th:href="@{/update-todo/(Id=${todo.getId()})}" class="btn btn-success">Update</a>   </td>
+						<td> <a th:href="@{/deleteTodo/(id=${todo.getId()})}" class="btn btn-warning">Delete</a>   </td>
+						<td> <a th:href="@{/updateTodo/(id=${todo.getId()})}" class="btn btn-success">Update</a>   </td>
 					</tr>
 				</tbody>
 			</table>
-			<a href="add-todo" class="btn btn-success">Add Todo</a>
+			<a href="addTodo" class="btn btn-success">Add Todo</a>
 		</div>
-		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+		<!-- jQuery -->
+    	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+		<!-- Bootstrap JS and Popper.js (required for Bootstrap components) -->
+	    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 	</body>
 </html>
