@@ -71,6 +71,10 @@ public class Todo {
 		this.localDate = targetDate;
 	}
 	
+	public boolean isInPast() {
+		return localDate.isBefore(LocalDate.now());
+	}
+	
 	public boolean isDone() {
 		return done;
 	}
