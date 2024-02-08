@@ -21,25 +21,27 @@ The Spring Boot Todo App is a full-fledged CRUD (Create, Read, Update, Delete) a
 
 Get started with the app by cloning the repository, setting up your database configuration, and running the application. Visit [http://localhost:8080]() to access the app.
 
+## Screenshots
+
+![1707413522092](image/README/1707413522092.png "List of all Todos")
+![1707413623787](image/README/1707413623787.png "Add Todo Page")
+![1707413699049](image/README/1707413699049.png "Update Todo Page")
+
 ## Workflow
 
-## ![1707413522092](https://file+.vscode-resource.vscode-cdn.net/d%3A/future/Practice/springboot/crude/image/README/1707413522092.png "List of all Todos")Add Todo
+### Add Todo
 
 1. Click on "Add Todo"
 2. Fill in the details and click "Save."
-
-![1707413623787](https://file+.vscode-resource.vscode-cdn.net/d%3A/future/Practice/springboot/crude/image/README/1707413623787.png "Add Todo Page")
 
 ### Update Todo
 
 1. Click on "Update", the todo you want to update.
 2. Modify the details and click "Update."
 
-![1707413699049](image/README/1707413699049.png "Update Todo Page")
-
 ### Delete Todo
 
-1. Click on "All Todos" in the navigation bar.
+1. Click on "Todos" in the navigation bar.
 2. Click on "Delete", the todo you want to delete.
 3. Click on "Yes, Delete" and confirm the action.
 
@@ -49,6 +51,6 @@ Contributions to the project are welcome! Feel free to open issues or submit pul
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](https://github.com/muhammad-mahad/springboot-todo-app/blob/main/LICENSE "LICENSE") file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE "LICENSE") file for details.
 
 Elevate your todo management experience with the Spring Boot Todo App!
