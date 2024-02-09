@@ -11,17 +11,25 @@
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
-			<a class="navbar-brand" href="https://github.com/muhammad-mahad">
+			<a class="navbar-brand" href="/">
                 <img src="../static/logo/todos.ico"  th:src="@{/logo/todos.ico}" alt="Favicon" width="30" height="30" class="d-inline-block align-top">
             </a>
 			<a class="navbar-brand m-1" href="https://www.linkedin.com/in/muhammad-mahad/">Muhammad Mahad</a>
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="https://github.com/muhammad-mahad">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="/allTodos">Todos</a></li>
 				</ul>
 			</div>	
 		</nav>
+		<!-- Alert for Completed Todos -->
+		<div th:if="${T(com.spring.project.crudapp.services.TodoCollectorsMap).isAllCompleted(todo)}" class="alert alert-success">
+		    <strong>Well done!</strong> You have completed todos.
+		</div>
+		<!-- Alert for Expired Todos --> 
+		<div th:if="${T(com.spring.project.crudapp.services.TodoCollectorsMap).isAnyMissed(todo)}" class="alert alert-danger">
+		    <strong>Attention!</strong> Some todos have passed their deadline.
+		</div>
 		<div class="container">
 			<h1>Your Todos</h1>
 			<table class="table">
@@ -36,11 +44,15 @@
 					</tr>
 				</thead>
 				<tbody>	
-					<tr th:each="todo:${todo}" th:class="${todo.isDone() ? 'table-success' : todo.isInPast() ? 'table-danger' : ''}">
+					<tr th:each="todo:${todo}">
 						<td th:text="${todo.getId()}">id</td>
 						<td th:text="${todo.getDescription()}">Description</td>
 						<td th:text="${todo.getLocalDate()}">Target Date</td>
-						<td th:text="${todo.isDone()}">Is Done?</td>
+						<td  th:class="${todo.isDone() ? 'table-success' : todo.isInPast() ? 'table-danger' : ''}">
+			                <span th:if="${todo.isDone()}" class="badge badge-success">Completed</span>
+			                <span th:if="${todo.isInPast() && !todo.isDone()}" class="badge badge-danger">Expired</span>
+			                <span th:unless="${todo.isDone() || (todo.isInPast() && !todo.isDone())}" class="badge badge-secondary">Pending</span>
+			            </td>
 						<td> <a th:href="@{/deleteTodo/(id=${todo.getId()})}" id="deleteButton" data-toggle="modal" data-target="#deleteModal" class="btn btn-warning">Delete</a>   </td>
 						<td> <a th:href="@{/updateTodo/(id=${todo.getId()})}" class="btn btn-success">Update</a>   </td>
 					</tr>

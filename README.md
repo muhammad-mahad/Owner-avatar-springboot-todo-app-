@@ -14,7 +14,7 @@ The Spring Boot Todo App is a full-fledged CRUD (Create, Read, Update, Delete) a
 * Spring Boot
 * Spring Data JPA
 * Thymeleaf (for server-side templating)
-* HTML/CSS
+* Bootstrap
 * MySQL (or your preferred database)
 
 ## Getting Started

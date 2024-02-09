@@ -23,7 +23,7 @@ public class Todo {
 		this.localDate = localDate;
 		this.done = done;
 	}
-	
+
 	public Todo(String username, String description, LocalDate localDate, boolean done) {
 		this(0, username, description, localDate, done);
 	}
@@ -54,7 +54,7 @@ public class Todo {
 	public void setUsername(String username) {
 		this.username = username;
 	}
-	
+
 	public String getDescription() {
 		return description;
 	}
@@ -70,11 +70,11 @@ public class Todo {
 	public void setLocalDate(LocalDate targetDate) {
 		this.localDate = targetDate;
 	}
-	
+
 	public boolean isInPast() {
 		return localDate.isBefore(LocalDate.now());
 	}
-	
+
 	public boolean isDone() {
 		return done;
 	}
