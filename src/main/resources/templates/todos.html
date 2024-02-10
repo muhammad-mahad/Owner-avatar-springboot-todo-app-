@@ -5,22 +5,26 @@
 	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	    <!-- Bootstrap CSS -->
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 		<!-- https://iconscout.com/free-icon/list-4903355 -->
 		<link rel="icon" th:href="@{/logo/todos.ico}" type="image/x-icon">
 		<title>List Todos Page</title>
 	</head>
 	<body>
 		<nav class="navbar navbar-expand-md navbar-light bg-light mb-3 p-1">
-			<a class="navbar-brand" href="/">
+			<a class="navbar-brand" href="https://github.com/muhammad-mahad/springboot-todo-app">
                 <img src="../static/logo/todos.ico"  th:src="@{/logo/todos.ico}" alt="Favicon" width="30" height="30" class="d-inline-block align-top">
+                Todo App
             </a>
-			<a class="navbar-brand m-1" href="https://www.linkedin.com/in/muhammad-mahad/">Muhammad Mahad</a>
 			<div class="collapse navbar-collapse">
 				<ul class="navbar-nav">
-					<li class="nav-item"><a class="nav-link" href="https://github.com/muhammad-mahad">Home</a></li>
+					<li class="nav-item"><a class="nav-link" href="/">Home</a></li>
 					<li class="nav-item"><a class="nav-link" href="/allTodos">Todos</a></li>
 				</ul>
-			</div>	
+			</div>
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="navbar-brand m-1" href="https://www.linkedin.com/in/muhammad-mahad/">Muhammad Mahad</a></li>
+			</ul>	
 		</nav>
 		<!-- Alert for Completed Todos -->
 		<div th:if="${T(com.spring.project.crudapp.services.TodoCollectorsMap).isAllCompleted(todo)}" class="alert alert-success">
@@ -32,32 +36,56 @@
 		</div>
 		<div class="container">
 			<h1>Your Todos</h1>
-			<table class="table">
+			<div class="table-responsive">
+			<table class="table text-center">
 				<thead class="thead-dark">
 					<tr style="font-weight:bold">
-						<th>id</th>
+						<th class="d-none d-md-table-cell">ID</th>
 						<th>Description</th>
 						<th>Target Date</th>
 						<th>Is Done?</th>
-						<th></th>
-						<th></th>
+				        <th>Update</th>
+				        <th>Delete</th>
 					</tr>
 				</thead>
-				<tbody>	
+				<tbody>
 					<tr th:each="todo:${todo}">
-						<td th:text="${todo.getId()}">id</td>
+						<td th:text="${todo.getId()}" class="d-none d-md-table-cell">id</td>
 						<td th:text="${todo.getDescription()}">Description</td>
 						<td th:text="${todo.getLocalDate()}">Target Date</td>
-						<td  th:class="${todo.isDone() ? 'table-success' : todo.isInPast() ? 'table-danger' : ''}">
+						<td  th:class="${todo.isDone() ? 'table-success d-none d-md-table-cell' : todo.isInPast() ? 'table-danger d-none d-md-table-cell' : 'd-none d-md-table-cell'}">
 			                <span th:if="${todo.isDone()}" class="badge badge-success">Completed</span>
 			                <span th:if="${todo.isInPast() && !todo.isDone()}" class="badge badge-danger">Expired</span>
 			                <span th:unless="${todo.isDone() || (todo.isInPast() && !todo.isDone())}" class="badge badge-secondary">Pending</span>
+			            </td>						
+						<td class="d-md-none">
+		                	<i th:if="${todo.isDone()}" title="Completed"
+		                		class="fa-solid fa-circle-check text-success"></i>
+			                <i th:if="${todo.isInPast() && !todo.isDone()}" title="Expired"
+			                	class="fa-solid fa-circle-xmark text-danger"></i>
+			                <i th:unless="${todo.isDone() || (todo.isInPast() && !todo.isDone())}"
+			                	title="Pending" class="fa-solid fa-circle text-warning"></i>
 			            </td>
-						<td> <a th:href="@{/deleteTodo/(id=${todo.getId()})}" id="deleteButton" data-toggle="modal" data-target="#deleteModal" class="btn btn-warning">Delete</a>   </td>
-						<td> <a th:href="@{/updateTodo/(id=${todo.getId()})}" class="btn btn-success">Update</a>   </td>
+			            <td class="d-none d-md-table-cell"><a th:href="@{/deleteTodo/(id=${todo.getId()})}" id="deleteButton" data-toggle="modal" data-target="#deleteModal" class="btn btn-warning">Delete</a></td>
+						<td class="d-md-none">
+							<a th:href="@{/deleteTodo/(id=${todo.getId()})}" id="deleteButton" data-toggle="modal" data-target="#deleteModal">
+								<button class="btn btn-danger" title="Delete">
+									<i class="fas fa-trash"></i>
+								</button>
+							</a>
+						</td>
+						<td class="d-none d-md-table-cell"><a th:href="@{/updateTodo/(id=${todo.getId()})}" class="btn btn-success">Update</a></td>
+						<td class="d-md-none">
+							<a th:href="@{/updateTodo/(id=${todo.getId()})}">
+								<button class="btn btn-warning" title="Update">
+									<i class="fas fa-edit"></i>
+								</button>
+							</a>
+						</td>
 					</tr>
 				</tbody>
 			</table>
+			</div>
 			<a href="addTodo" class="btn btn-success">Add Todo</a>
 			
 			<div class="modal fade" tabindex="-1" role="dialog" id="deleteModal" aria-labelledby="deleteModalLabel" aria-hidden="true">
