@@ -27,6 +27,10 @@ Get started with the app by cloning the repository, setting up your database con
 ![1707413623787](image/README/1707413623787.png "Add Todo Page")
 ![1707413699049](image/README/1707413699049.png "Update Todo Page")
 
+### Responsive View
+
+![1707413699048](image/README/1707413699048.png "Responsive List of all Todos")
+
 ## Workflow
 
 ### Add Todo

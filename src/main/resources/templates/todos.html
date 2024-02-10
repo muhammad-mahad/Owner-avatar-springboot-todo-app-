@@ -54,9 +54,9 @@
 						<td th:text="${todo.getDescription()}">Description</td>
 						<td th:text="${todo.getLocalDate()}">Target Date</td>
 						<td class="d-none d-md-table-cell">
-			                <span th:if="${todo.isDone()}" class="badge badge-success">Completed</span>
-			                <span th:if="${todo.isInPast() && !todo.isDone()}" class="badge badge-danger">Expired</span>
-			                <span th:unless="${todo.isDone() || (todo.isInPast() && !todo.isDone())}" class="badge badge-secondary">Pending</span>
+			                <span th:if="${todo.isDone()}" class="badge badge-success text-success">Completed</span>
+			                <span th:if="${todo.isInPast() && !todo.isDone()}" class="badge badge-danger text-danger">Expired</span>
+			                <span th:unless="${todo.isDone() || (todo.isInPast() && !todo.isDone())}" class="badge badge-secondary text-secondary">Pending</span>
 			            </td>						
 						<td class="d-md-none">
 		                	<i th:if="${todo.isDone()}" title="Completed"
