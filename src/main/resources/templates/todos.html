@@ -49,11 +49,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					<tr th:each="todo:${todo}">
+					<tr th:each="todo:${todo}" th:class="${todo.isDone() ? 'table-success' : todo.isInPast() ? 'table-danger' : ''}">
 						<td th:text="${todo.getId()}" class="d-none d-md-table-cell">id</td>
 						<td th:text="${todo.getDescription()}">Description</td>
 						<td th:text="${todo.getLocalDate()}">Target Date</td>
-						<td  th:class="${todo.isDone() ? 'table-success d-none d-md-table-cell' : todo.isInPast() ? 'table-danger d-none d-md-table-cell' : 'd-none d-md-table-cell'}">
+						<td class="d-none d-md-table-cell">
 			                <span th:if="${todo.isDone()}" class="badge badge-success">Completed</span>
 			                <span th:if="${todo.isInPast() && !todo.isDone()}" class="badge badge-danger">Expired</span>
 			                <span th:unless="${todo.isDone() || (todo.isInPast() && !todo.isDone())}" class="badge badge-secondary">Pending</span>
