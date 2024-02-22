@@ -1,6 +1,7 @@
 package com.spring.project.crudapp.models;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,16 +17,24 @@ public class Todo {
 	public Todo() {
 	}
 
+	public Todo(String description, LocalDate localDate) {
+		this(-1, "", description, localDate, false);
+	}
+
+	public Todo(String description, LocalDate localDate, boolean done) {
+		this(-1, "", description, localDate, done);
+	}
+
+	public Todo(String username, String description, LocalDate localDate, boolean done) {
+		this(-1, username, description, localDate, done);
+	}
+
 	public Todo(int id, String username, String description, LocalDate localDate, boolean done) {
 		this.id = id;
 		this.username = username;
 		this.description = description;
 		this.localDate = localDate;
 		this.done = done;
-	}
-
-	public Todo(String username, String description, LocalDate localDate, boolean done) {
-		this(0, username, description, localDate, done);
 	}
 
 	@Id
@@ -81,6 +90,14 @@ public class Todo {
 
 	public void setDone(boolean done) {
 		this.done = done;
+	}
+
+	public static final boolean isAnyMissed(List<Todo> todos) {
+		return todos.stream().anyMatch(todo -> todo.isInPast() && !todo.isDone());
+	}
+
+	public static final boolean isAllCompleted(List<Todo> todos) {
+		return todos.stream().allMatch(todo -> todo.isDone());
 	}
 
 	@Override

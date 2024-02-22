@@ -27,11 +27,11 @@
 			</ul>	
 		</nav>
 		<!-- Alert for Completed Todos -->
-		<div th:if="${T(com.spring.project.crudapp.services.TodoCollectorsMap).isAllCompleted(todo)}" class="alert alert-success">
+		<div th:if="${T(com.spring.project.crudapp.models.Todo).isAllCompleted(todo)}" class="alert alert-success">
 		    <strong>Well done!</strong> You have completed todos.
 		</div>
 		<!-- Alert for Expired Todos --> 
-		<div th:if="${T(com.spring.project.crudapp.services.TodoCollectorsMap).isAnyMissed(todo)}" class="alert alert-danger">
+		<div th:if="${T(com.spring.project.crudapp.models.Todo).isAnyMissed(todo)}" class="alert alert-danger">
 		    <strong>Attention!</strong> Some todos have passed their deadline.
 		</div>
 		<div class="container">

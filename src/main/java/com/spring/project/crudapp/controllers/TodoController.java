@@ -15,8 +15,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.project.crudapp.CrudeAppData;
 import com.spring.project.crudapp.models.Todo;
-import com.spring.project.crudapp.models.TodoDto1;
-import com.spring.project.crudapp.models.TodoDto2;
 import com.spring.project.crudapp.services.TodoService;
 
 @Controller
@@ -28,7 +26,7 @@ public class TodoController {
 		this.todoService = todoService;
 	}
 
-	@RequestMapping("/")
+	@RequestMapping
 	public String mainPage() {
 		return REDIRECT_TO_GET_ALL;
 	}
@@ -40,7 +38,7 @@ public class TodoController {
 		return CrudeAppData.GET_ALL_HTML;
 	}
 	
-	private void addNewTodoModelAttribute(ModelMap model, TodoDto1 todo) {
+	private void addNewTodoModelAttribute(ModelMap model, Todo todo) {
 		if (todo == null)
 			todo = todoService.newTodo();
 		model.addAttribute(CrudeAppData.TODO, todo);
@@ -54,7 +52,7 @@ public class TodoController {
 	}
 
 	@RequestMapping(value = CrudeAppData.ADD_TODO, method = RequestMethod.POST)
-	public String postNewTodo(@Validated @ModelAttribute("todo") TodoDto1 todo, BindingResult bindingResult,
+	public String postNewTodo(@Validated @ModelAttribute(CrudeAppData.TODO) Todo todo, BindingResult bindingResult,
 			ModelMap model) {
 		if (bindingResult.hasErrors()) {
 			addNewTodoModelAttribute(model, todo);
@@ -70,12 +68,12 @@ public class TodoController {
 		return REDIRECT_TO_GET_ALL;
 	}
 
-	private void addUpdateTodoAttribute(ModelMap model, TodoDto2 todo2, int id) {
-		if (todo2 == null) {
+	private void addUpdateTodoAttribute(ModelMap model, Todo todoDto, int id) {
+		if (todoDto == null) {
 			Todo todo = todoService.getTodo(id);
-			todo2 = new TodoDto2(todo.getDescription(), todo.getLocalDate(), todo.isDone());
+			todoDto = new Todo(todo.getDescription(), todo.getLocalDate(), todo.isDone());
 		}
-		model.addAttribute(CrudeAppData.TODO, todo2);
+		model.addAttribute(CrudeAppData.TODO, todoDto);
 		model.addAttribute(CrudeAppData.PAGE_TITLE, CrudeAppData.UPDATE_PAGE);
 	}
 
@@ -86,7 +84,7 @@ public class TodoController {
 	}
 
 	@RequestMapping(value = CrudeAppData.UPDATE_TOOD, method = RequestMethod.POST)
-	public String postUpdateTodo(@RequestParam int id, @Validated @ModelAttribute("todo") TodoDto2 todo,
+	public String postUpdateTodo(@RequestParam int id, @Validated @ModelAttribute(CrudeAppData.TODO) Todo todo,
 			BindingResult bindingResult, ModelMap model) {
 		if (bindingResult.hasErrors()) {
 			addUpdateTodoAttribute(model, todo, id);
